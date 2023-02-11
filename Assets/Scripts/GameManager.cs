@@ -48,16 +48,7 @@ public class GameManager : MonoBehaviour
 
     void Start() {
         isCustomizing = true;
-        enemySpawns = new Vector3[numberOfEnemies];
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach(GameObject enemie in enemies) {
-            for (int i = 0; i < enemySpawns.Length; i++) {
-                if (enemySpawns[i] == Vector3.zero) {
-                    enemySpawns[i] = enemie.transform.position;
-                    break;
-                }
-            }
-        }
     }
 
     private void Update () {
@@ -136,6 +127,16 @@ public class GameManager : MonoBehaviour
 
     public void FinishedCustomizing() {
         player.transform.position = new Vector3(spawnPoint.transform.position.x, spawnPoint.transform.position.y + 2, spawnPoint.transform.position.z);
+        enemySpawns = new Vector3[numberOfEnemies];
+        foreach(GameObject enemie in enemies) {
+            for (int i = 0; i < enemySpawns.Length; i++) {
+                if (enemySpawns[i] == Vector3.zero) {
+                    enemySpawns[i] = enemie.transform.position;
+                    break;
+                }
+            }
+        }
+        Debug.Log(enemySpawns.Length);
         isCustomizing = false;
     }
 
@@ -145,6 +146,7 @@ public class GameManager : MonoBehaviour
 
     void DungeonEnd() {
         player.transform.position = new Vector3(safeHavenSpawn.transform.position.x, safeHavenSpawn.transform.position.y + 2, safeHavenSpawn.transform.position.z);
+        
         foreach (GameObject enemie in enemies) {
             enemie.SetActive(true);
             for(int i = 0; i < enemySpawns.Length; i++) {
@@ -167,6 +169,7 @@ public class GameManager : MonoBehaviour
         }
         numberOfEnemies = enemies.Length;
         chestActivated = false;
+        Debug.Log(enemySpawns.GetValue(0));
     }
 
     public void RespawnButton() {
