@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public GameObject cam;
     public GameObject mainCamera;
     public GameObject customizingCam;
-    bool isCustomizing;
+    public bool isCustomizing;
 
     public int numberOfEnemies;
 
@@ -46,6 +46,10 @@ public class GameManager : MonoBehaviour
     bool chestActivated;
     public GameObject deathScreen;
 
+    public GameObject countdownGameObject;
+    public TextMeshProUGUI countdownText;
+    private float countDownTimer;
+
     void Start() {
         isCustomizing = true;
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -55,6 +59,12 @@ public class GameManager : MonoBehaviour
         currencyText.text = currency.ToString();
         if(isTargetedEnemy) enemySlider.SetActive(true);
         else enemySlider.SetActive(false);
+
+        if(countDownTimer > 0) {
+            countdownText.text = Mathf.RoundToInt(countDownTimer).ToString();
+            Debug.Log(countDownTimer);
+            countDownTimer -= Time.deltaTime;
+        } else countdownGameObject.SetActive(false);
 
         if(isCustomizing) {
             inGameUI.SetActive(false);
@@ -95,7 +105,6 @@ public class GameManager : MonoBehaviour
             bottomCustomize ++;
             SwitchBottoms();
         }
-        
     }
 
     public void RightArrow() {
@@ -142,6 +151,8 @@ public class GameManager : MonoBehaviour
 
     public void StartDungeonEnd() {
         Invoke("DungeonEnd", 5f);
+        countdownGameObject.SetActive(true);
+        countDownTimer = 5;
     }
 
     void DungeonEnd() {

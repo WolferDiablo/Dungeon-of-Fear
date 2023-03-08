@@ -12,5 +12,6 @@ public class ContainerStuffs : MonoBehaviour
     public Image enemyFill;
     public GameManager gameManager;
     public PlayerStats playerStats;
+    public Inventory inventory;
 
 }

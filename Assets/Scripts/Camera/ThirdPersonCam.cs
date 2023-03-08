@@ -11,6 +11,8 @@ public class ThirdPersonCam : MonoBehaviour
     public Transform playerObj;
     public Rigidbody rb;
 
+    public ContainerStuffs containerStuffs;
+
     public float rotationSpeed;
     public CinemachineFreeLook camCorder;
 
